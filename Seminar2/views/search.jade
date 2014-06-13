@@ -1,0 +1,43 @@
+extends master-template
+block content
+  .intro-image(style='background-image: url(#{baseUrl}/img/search_bg.jpg);position:relative;')
+    .searchform
+      .col-md-12
+        h3 Pretraži lokacije
+          small Pronađi savršen odmor za sebe
+        form(action='#{baseUrl}/search/results', method='post')
+          p Traži po nazivu
+            input.form-control(type='text', name='bytitle', placeholder='naziv lokacije')
+          p Ili po vrsti odmora
+            select.form-control(name='bycat')
+              option(value='0') -
+              for category in categories
+                option(value='#{category['category_id']}') #{category['category_title']}
+          button(type='submit') Traži
+  .container
+    .col-md-12.page
+      .row
+        .col-md-4
+          .panel.panel-default
+            .panel-body
+              h3 Nove lokacije
+              ul
+                for recent in newlocations
+                  li
+                    a(href='#{baseUrl}/location/#{recent['location_id']}') #{recent['location_name']}
+        .col-md-4
+          .panel.panel-default
+            .panel-body
+              h3 Top 10
+              ol
+                for top in toplocations
+                  li
+                    a(href='#{baseUrl}/location/#{top['location_id']}') #{top['location_name']}
+        .col-md-4
+          .panel.panel-default
+            .panel-body
+              h3 Kategorije
+              ul
+                for allcat in categories
+                  li
+                    a(href='#{baseUrl}/category/#{allcat['category_id']}') #{allcat['category_title']}

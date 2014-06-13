@@ -1,0 +1,47 @@
+// Svi komentari
+if comCount > 0
+  for comment in commentsList
+    .row.comment
+      .col-md-12
+        a(href='#') #{comment['username']}:
+        p #{comment['comment_text']}
+        p.small #{comment['comment_date']}
+        if isadmin
+          a(href='#{baseUrl}/comment/#{comment['comment_id']}/edit')
+            p.small Uredi
+else
+  p Nema komentara.
+// Submit your comment form
+.row.comment
+  form(role='form', method='post')
+    h3 Tvoj komentar:
+    .form-group
+      textarea.form-control(name='comTxt', rows='5')
+    unless userVoted
+      .form-group
+        h4 Ocjena:
+        .radio-inline
+          label
+            input#rating0(type='radio', name='locationRating', value='0', checked='checked')
+            | 0
+        .radio-inline
+          label
+            input#rating0(type='radio', name='locationRating', value='1')
+            | 1
+        .radio-inline
+          label
+            input#rating0(type='radio', name='locationRating', value='2')
+            | 2
+        .radio-inline
+          label
+            input#rating0(type='radio', name='locationRating', value='3')
+            | 3
+        .radio-inline
+          label
+            input#rating0(type='radio', name='locationRating', value='4')
+            | 4
+        .radio-inline
+          label
+            input#rating0(type='radio', name='locationRating', value='5')
+            | 5
+    button.btn.btn-info(type='submit') Pošalji

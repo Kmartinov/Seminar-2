@@ -1,0 +1,18 @@
+extends master-template
+block content
+  .container
+    .row
+      #cat.col-md-12
+        .row
+          p.lead #{cat['category_title']}
+        .row
+          p.lead= $flash['info']
+        .row
+          for location in locations
+            .col-md-4
+              .panel.panel-default
+                .panel-body
+                  img.img-responsive(src='#{baseUrl}/#{location['location_image']}', alt='')
+                  a(href='#{baseUrl}/location/#{location['location_id']}')
+                    h2 #{location['location_name']}
+                  p #{location['location_desc']}

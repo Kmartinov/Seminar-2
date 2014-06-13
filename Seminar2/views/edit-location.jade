@@ -1,0 +1,55 @@
+extends master-template
+block content
+  .container
+      ol.breadcrumb
+          li
+              a(href='dashboard.html') Administracija
+          li
+              a(href='dashboard.html') Stranice
+          li.active Nova stranica
+      .row
+          p.lead= $flash['success']
+          form(role='form', method='post', enctype='multipart/form-data')
+              .col-md-8
+                  .form-group
+                      label(for='pageTitle') Naslov
+                      input.form-control(type='text', name='pageTitle', value='#{location['location_name']}', placeholder='Naslov stranice')
+                  .form-group
+                      label(for='pageDesc') Opis
+                      input.form-control(type='text', name='pageDesc', value='#{location['location_desc']}', placeholder='Opis stranice')
+                  .form-group
+                      label(for='pageContent') Tekst
+                      textarea#ckeditor.form-control(rows='8', name='pageTxt')
+                          | #{location['location_text']}
+                  .panel.panel-default
+                      .panel-heading
+                          h3.panel-title Lokacija
+                      .panel-body
+                          .form-group
+                              input.form-control(type='text', name='lat', value='#{location['location_lat']}', placeholder='Latituda')
+                          .form-group
+                              input.form-control(type='text', name='lng', value='#{location['location_lng']}', placeholder='Longituda')
+              .col-md-4
+                  .panel.panel-default
+                      .panel-body
+                          .form-group
+                              button.btn.btn-primary(type='submit') Objavi
+                  .panel.panel-default
+                      .panel-heading
+                          h3.panel-title Kategorija
+                      .panel-body
+                          p Trenutna kategorija: #{locationCat['category_title']} 
+                          .form-group
+                              p Promijeni kategoriju
+                              select.form-control(name='catId')
+                                  option(value='0') -
+                                  for category in categories
+                                      option(value='#{category['category_id']}') #{category['category_title']}
+                  .panel.panel-default
+                      .panel-heading
+                          h3.panel-title Slika
+                      .panel-body
+                          .form-group
+                              input#exampleInputFile(type='file',name='pageImg')
+                              p.help-block Trenutna slika:
+                              img.img-responsive(src='#{baseUrl}/#{location['location_image']}')
